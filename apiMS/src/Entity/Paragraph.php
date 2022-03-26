@@ -3,23 +3,24 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Traits\ResourceId;
 use App\Repository\ParagraphRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ParagraphRepository::class)]
 #[ORM\Table(name: "paragraphs")]
-#[ApiResource()]
+#[ApiResource]
 class Paragraph
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
+    use ResourceId;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['article_details_read'])]
     private $title;
 
     #[ORM\Column(type: 'text')]
+    #[Groups(['article_details_read'])]
     private $content;
 
     #[ORM\ManyToOne(targetEntity: Article::class, inversedBy: 'paragraph')]

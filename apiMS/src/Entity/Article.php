@@ -3,34 +3,51 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Traits\ResourceId;
 use App\Entity\Traits\Timestampable;
 use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 #[ORM\Table(name: "articles")]
 #[ORM\HasLifecycleCallbacks]
-#[ApiResource()]
+#[ApiResource(
+    collectionOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => 'article_read']
+        ],
+        'post'
+    ],
+    itemOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => 'article_details_read']
+        ],
+        'put',
+        'patch',
+        'delete'
+    ]
+)]
 class Article
 {
+    use ResourceId;
     use Timestampable;
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['article_read', 'user_details_read', 'article_details_read'])]
     private $title;
 
     #[ORM\Column(type: 'boolean')]
     private $is_publish;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'articles')]
+    #[Groups(['article_details_read'])]
     private $author;
 
-    #[ORM\OneToMany(mappedBy: 'article', targetEntity: paragraph::class)]
+    #[ORM\OneToMany(mappedBy: 'article', targetEntity: Paragraph::class)]
+    #[Groups(['article_read', 'article_details_read'])]
     private $paragraph;
 
     public function __construct()

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Traits\ResourceId;
 use App\Entity\Traits\Timestampable;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -10,20 +11,34 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: "users")]
 #[ORM\HasLifecycleCallbacks]
-#[ApiResource()]
+#[ApiResource(
+    collectionOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => 'user_read']
+        ],
+        'post'
+    ],
+    itemOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => 'user_details_read']
+        ],
+        'put',
+        'patch',
+        'delete'
+    ]
+)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    use ResourceId;
     use Timestampable;
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Groups(['user_read', 'user_details_read', 'article_details_read'])]
     private $email;
 
     #[ORM\Column(type: 'json', options: ["default" => '["ROLE_USER]'])]
@@ -33,43 +48,47 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     #[ORM\Column(type: 'string', length: 150, nullable: true)]
+    #[Groups(['user_read', 'user_details_read', 'article_details_read'])]
     private $firstname;
 
     #[ORM\Column(type: 'string', length: 150, nullable: true)]
+    #[Groups(['user_read', 'user_details_read', 'article_details_read'])]
     private $lastname;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['user_details_read'])]
     private $city;
 
     #[ORM\Column(type: 'string', options: ["default" => "privé"])]
     private $status;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['user_details_read'])]
     private $signature_dish;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['user_details_read'])]
     private $bio;
 
     #[ORM\Column(type: 'smallint', options: ["default" => 0])]
+    #[Groups(['user_details_read'])]
     private $counter_like;
 
     #[ORM\Column(type: 'integer', options: ["default" => 0])]
+    #[Groups(['user_details_read'])]
     private $counter_follower;
 
     #[ORM\Column(type: 'integer', options: ["default" => 0])]
+    #[Groups(['user_details_read'])]
     private $counter_subscriber;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Article::class)]
+    #[Groups(['user_details_read'])]
     private $articles;
 
     public function __construct()
     {
         $this->articles = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getEmail(): ?string
