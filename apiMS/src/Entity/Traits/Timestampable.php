@@ -3,13 +3,16 @@
 namespace App\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 trait Timestampable
 {
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[Groups(['user_read', 'user_details_read', 'article_read', 'article_details_read'])]
     private $createdAt;
 
     #[ORM\Column(type: 'datetime', options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[Groups(['user_read', 'user_details_read', 'article_read', 'article_details_read'])]
     private $updatedAt;
 
     public function getCreatedAt(): ?\DateTimeInterface
