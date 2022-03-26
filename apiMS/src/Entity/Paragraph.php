@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ParagraphRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ParagraphRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: ParagraphRepository::class)]
+#[ORM\Table(name: "paragraphs")]
+#[ApiResource()]
 class Paragraph
 {
     #[ORM\Id]
