@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use App\Entity\User;
 use App\Entity\Article;
+use App\Entity\Paragraph;
 use App\Entity\Traits\Timestampable;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -38,12 +39,20 @@ class UserFixtures extends Fixture
 
             $manager->persist($user);
 
+            $article = new Article();
+
             for ($a = 0; $a < random_int(5, 15); $a++) {
-                $article = (new Article())->setAuthor($user)
+                $article->setAuthor($user)
                     ->setIsPublish($faker->boolean())
                     ->setTitle($faker->sentence(3));
-
                 $manager->persist($article);
+            }
+
+            for ($p = 0; $p < 5; $p++) {
+                $paragraph = (new Paragraph())->setArticle($article)
+                    ->setTitle($faker->sentence(3))
+                    ->setContent($faker->text());
+                $manager->persist($paragraph);
             }
         }
 
