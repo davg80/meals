@@ -62,6 +62,13 @@
         "symfony/polyfill-php80": "*"
     },
     "scripts": {
+        "prepare": [
+            "symfony console doctrine:database:drop --force",
+            "symfony console doctrine:database:create",
+            "symfony console make:migration",
+            "symfony console doctrine:migrations:migrate",
+            "symfony console doctrine:fixtures:load -n"
+        ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"

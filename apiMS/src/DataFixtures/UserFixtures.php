@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\ApiToken;
 use Faker\Factory;
 use App\Entity\User;
 use App\Entity\Article;
@@ -27,6 +28,7 @@ class UserFixtures extends Fixture
 
         for ($u = 0; $u < 10; $u++) {
             $user = new User();
+            $token = new ApiToken();
 
             $passwordHashed = $this->passwordHashed->hashPassword($user, 'password');
 
@@ -36,6 +38,10 @@ class UserFixtures extends Fixture
                 ->setCounterFollower(random_int(0, 300))
                 ->setCounterSubscriber(random_int(0, 300))
                 ->setPassword($passwordHashed);
+
+            $token->setToken(bin2hex(random_bytes(60)))
+                ->setUser($user);
+            $manager->persist($token);
 
             $manager->persist($user);
 
