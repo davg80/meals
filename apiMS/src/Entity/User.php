@@ -192,13 +192,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): string
     {
         return $this->status;
     }
 
     public function setStatus(string $status): self
     {
+        $status = "Privé";
         $this->status = $status;
 
         return $this;
