@@ -59,8 +59,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user_details_read'])]
     private $city;
 
-    #[ORM\Column(type: 'string', options: ["default" => "privé"])]
-    private $status;
+    #[ORM\Column(type: 'string', options: ["default" => "Privé"])]
+    private $status = "Privé";
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups(['user_details_read'])]
@@ -72,19 +72,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'smallint', options: ["default" => 0])]
     #[Groups(['user_details_read'])]
-    private $counter_like;
+    private $counter_like = 0;
 
     #[ORM\Column(type: 'integer', options: ["default" => 0])]
     #[Groups(['user_details_read'])]
-    private $counter_follower;
+    private $counter_follower = 0;
 
     #[ORM\Column(type: 'integer', options: ["default" => 0])]
     #[Groups(['user_details_read'])]
-    private $counter_subscriber;
+    private $counter_subscriber = 0;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Article::class)]
     #[Groups(['user_details_read'])]
     private $articles;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $username;
 
     public function __construct()
     {
@@ -109,6 +112,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @see UserInterface
      */
     public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    public function getUsername(): ?string
     {
         return (string) $this->email;
     }
@@ -199,7 +207,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setStatus(string $status): self
     {
-        $status = "Privé";
         $this->status = $status;
 
         return $this;
@@ -291,6 +298,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $article->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setUsername(?string $username): self
+    {
+        $this->username = $username;
 
         return $this;
     }

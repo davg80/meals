@@ -12,14 +12,38 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\User
-                property: email
+                property: username # and not email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
-            lazy: true
-            provider: app_user_provider
+        login:
+            pattern: ^/api/login
+            stateless: true
+            json_login:
+                check_path: /api/login_check
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        users: 
+            pattern:   ^/api/users
+            methods: [PUT, PATCH, DELETE]
+            stateless: true
+            jwt: ~
+
+        articles: 
+            pattern:   ^/api/articles
+            methods: [POST, PUT, PATCH, DELETE]
+            stateless: true
+            jwt: ~
+
+        api:
+            pattern:   ^/api
+            stateless: true
+            jwt: ~
+
+        # main:
+        #     lazy: true
+        #     provider: app_user_provider
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -32,6 +56,8 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY ,methods: [PUT, PATCH, DELETE]}
+        - { path: ^/api/articles, roles: IS_AUTHENTICATED_FULLY , methods: [POST, PUT, PATCH, DELETE]}
 
 when@test:
     security:
