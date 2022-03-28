@@ -30,8 +30,8 @@ class UserFixtures extends Fixture
 
             $passwordHashed = $this->passwordHashed->hashPassword($user, 'password');
 
-            $user->setEmail($faker->email())
-                ->setUsername($faker->word())
+            $user->setEmail($faker->email());
+            $user->setUsername($user->getEmail())
                 ->setStatus("privé")
                 ->setCounterLike(random_int(0, 300))
                 ->setCounterFollower(random_int(0, 300))
