@@ -3,9 +3,6 @@
 namespace App\Events;
 
 use App\Entity\User;
-use App\Entity\Article;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use ApiPlatform\Core\EventListener\EventPriorities;

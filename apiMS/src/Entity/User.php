@@ -15,7 +15,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: "users")]
-#[ORM\HasLifecycleCallbacks]
 #[ApiResource(
     collectionOperations: [
         'get' => [
@@ -101,6 +100,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setEmail(string $email): self
     {
+        $this->username = $email;
         $this->email = $email;
 
         return $this;

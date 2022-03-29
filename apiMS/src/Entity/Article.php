@@ -13,7 +13,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 #[ORM\Table(name: "articles")]
-#[ORM\HasLifecycleCallbacks]
 #[ApiResource(
     collectionOperations: [
         'get' => [
