@@ -3,11 +3,12 @@
 namespace App\Authorizations;
 
 use App\Entity\User;
+use App\Entity\Article;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-class UserAuthorizationChecker
+class ArticleAuthorizationChecker
 {
     private array $methodAllowed = [
         Request::METHOD_PUT,
@@ -20,10 +21,10 @@ class UserAuthorizationChecker
         $this->user = $security->getUser();
     }
 
-    public function check(User $user, string $method): void
+    public function check(Article $article, string $method): void
     {
         $this->isAuthenticated();
-        if ($this->isMethodAllowed($method) && $user->getId() !== $this->user->getId()) {
+        if ($this->isMethodAllowed($method) && $article->getAuthor()->getId() !== $this->user->getId()) {
             $errorMessage = "It's not your resource";
             throw new UnauthorizedHttpException($errorMessage, $errorMessage);
         }

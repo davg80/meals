@@ -3,25 +3,26 @@
 namespace App\Events;
 
 use App\Entity\User;
+use App\Entity\Article;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelEvents;
-use App\Authorizations\UserAuthorizationChecker;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use ApiPlatform\Core\EventListener\EventPriorities;
+use App\Authorizations\ArticleAuthorizationChecker;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 
-class UserSubscriber implements EventSubscriberInterface
+class ArticleSubscriber implements EventSubscriberInterface
 {
 
     private array $methodNotAllowed = [
         Request::METHOD_POST,
         Request::METHOD_GET,
     ];
-    private UserAuthorizationChecker $userAuthorizationChecker;
-    public function __construct(UserAuthorizationChecker $userAuthorizationChecker)
+    private ArticleAuthorizationChecker $articleAuthorizationChecker;
+    public function __construct(ArticleAuthorizationChecker $articleAuthorizationChecker)
     {
-        $this->userAuthorizationChecker =  $userAuthorizationChecker;
+        $this->articleAuthorizationChecker =  $articleAuthorizationChecker;
     }
 
     public static function getSubscribedEvents()
@@ -33,11 +34,11 @@ class UserSubscriber implements EventSubscriberInterface
 
     public function check(ViewEvent $event): void
     {
-        $user = $event->getControllerResult();
+        $article = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
-        if ($user instanceof User && !in_array($method, $this->methodNotAllowed, true)) {
-            $this->userAuthorizationChecker->check($user, $method);
-            $user->setUpdatedAt(new \DateTimeImmutable());
+        if ($article instanceof Article && !in_array($method, $this->methodNotAllowed, true)) {
+            $this->articleAuthorizationChecker->check($article, $method);
+            $article->setUpdatedAt(new \DateTimeImmutable());
         }
     }
 }
