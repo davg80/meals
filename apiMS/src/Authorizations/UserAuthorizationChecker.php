@@ -17,6 +17,7 @@ class UserAuthorizationChecker
     private ?User $user;
     public function __construct(Security $security)
     {
+        // Current user
         $this->user = $security->getUser();
     }
 
