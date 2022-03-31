@@ -9,6 +9,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ParagraphRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 #[ORM\Table(name: "paragraphs")]
 #[ApiResource]
 class Paragraph
