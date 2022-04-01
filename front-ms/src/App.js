@@ -1,11 +1,11 @@
 import { Routes, Route } from "react-router-dom"
-import Article from './components/articles/Article'
-import Articles from './components/articles/Articles'
-import Account from './components/users/Account'
-import Profile from './components/users/Profile'
-import Login from './components/users/Login'
-import Register from './components/users/Register'
-import Home from './components/Home'
+import Article from './pages/articles/Article'
+import Articles from './pages/articles/Articles'
+import Account from './pages/users/Account'
+import Profile from './pages/users/Profile'
+import Login from './pages/users/Login'
+import Register from './pages/users/Register'
+import Home from './pages/Home'
 
 function App() {
   return (
