@@ -1,0 +1,64 @@
+@import url('../../../assets/css/main.css');
+
+.card {
+    width: 421px;
+    height: 412px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+    position: relative;
+    background: var(--main-color-white) 0% 0% no-repeat padding-box;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 6px 6px 12px #C4C4C42E;
+    border-radius: 20px;
+    opacity: 1;
+}
+
+.picture-card {
+    width: 421px;
+    height: 297px;
+    top: 0px;
+    overflow: hidden;
+}
+
+.picture-card img {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.header-card {
+    width: 100%;
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    background: var(--main-color-white);
+    filter: opacity(.4);
+}
+
+.icons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 19px;
+}
+
+.icons-block-left {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-left: 19px;
+}
+
+.icons-block-right {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-right: 19px;
+}
+
+.title-card {
+    text-align: start;
+    margin-left: 19px;
+    margin-top: 27.9px;
+}

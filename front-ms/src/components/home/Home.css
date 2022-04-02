@@ -1,0 +1,66 @@
+@import url('../../assets/css/main.css');
+
+.container-form {
+    width: 463px;
+    height: 1650px;
+    background: var(--main-color-white) 0% 0% no-repeat padding-box;
+    box-shadow: 6px 6px 10px var(--main-color-shadow);
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 6px 6px 10px #F7F7F7;
+    border: 1px solid #EDEDED;
+    opacity: 1;
+    padding-top: 34.63px;
+    padding-left: 42px;
+    padding-right: 32px;
+
+}
+
+.Home {
+    display: flex;
+    height: 140vh;
+}
+
+.container-home {
+    width: 100%;
+    margin-top: 115px;
+    margin-left: 52px;
+    text-align: center;
+}
+
+.container-home h1 {
+    font-size: 50px;
+    margin-bottom: 25px;
+}
+
+.logoMS {
+    width: 146.9px;
+    height: 82.94px;
+}
+
+.form-title {
+    margin-top: 37.62px;
+    border-bottom: 1px var(--main-color-separator) solid;
+    padding-bottom: 20px;
+}
+
+.form-action {
+    margin-top: 25px;
+    margin-bottom: 38px;
+}
+
+.form-action {
+    font-size: 22px;
+}
+
+.is-active {
+    font-weight: 700;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.no-active {
+    font-weight: 700;
+    margin-right: 20px;
+    color: var(--main-color-gray);
+    cursor: pointer;
+}

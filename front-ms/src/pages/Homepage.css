@@ -1,0 +1,18 @@
+.block-cards {
+    width: 95%;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 20px;
+}
+
+.blur-progessive {
+    width: 80%;
+    height: 100%;
+    position: absolute;
+    top: 80%;
+    background: var(--main-color-white);
+    filter: opacity(.4);
+}

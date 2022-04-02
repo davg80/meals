@@ -5,12 +5,12 @@ import Account from './pages/users/Account'
 import Profile from './pages/users/Profile'
 import Login from './pages/users/Login'
 import Register from './pages/users/Register'
-import Home from './pages/Home'
+import Homepage from './pages/Homepage'
 
 function App() {
   return (
     <Routes>
-      <Route exact path="/" element={<Home />} />
+      <Route exact path="/" element={<Homepage />} />
       <Route exact path="/articles" element={<Articles />} />
       <Route exact path="/articles/:id" element={<Article />} />
       <Route exact path="/account" element={<Account />} />

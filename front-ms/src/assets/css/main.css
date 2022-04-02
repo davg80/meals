@@ -1,0 +1,10 @@
+:root {
+    --main-color-orange: #F6681C;
+    --main-color-separator: #fbdbc9;
+    --main-color-vert: #136F5A;
+    --main-color-gray: #7c7c7c;
+    --main-color-gray-light: rgba(124, 124, 124, .4);
+    --main-color-gray-dark: #191919;
+    --main-color-white: #ffffff;
+    --main-color-shadow: #f7f7f7;
+}
