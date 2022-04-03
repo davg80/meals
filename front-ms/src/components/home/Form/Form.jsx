@@ -1,20 +1,50 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
+import { toast } from 'react-toastify';
 import './Form.css'
 import Google from './google.svg';
 import Facebook from './facebook.svg';
 import Apple from './apple.svg';
 import Eye from './eye-mdp.svg';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { UserContext } from "../../../App"
+import axios from 'axios'
 
 export default function Form({ viewForm, setViewForm }) {
     // console.log(viewForm);
     // console.log(setViewForm);
-    let login;
+    const navigate = useNavigate();
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const { user, setUser } = useContext(UserContext);
+    // console.log(user); //Object { loggedIn: false }
+    const login = (e) => {
+        e.preventDefault();
+        let credentials = { 'username': email, 'password': password };
+        // console.warn(user)
+
+        axios.post('http://127.0.0.1:8000/api/login_check', credentials)
+            .then(response => response.data.token)
+            .then(token => {
+                localStorage.setItem('token', token)
+                setUser({ 'loggedIn': true })
+                localStorage.setItem('loggedIn', true)
+                toast.success('Content de vous revoir!')
+                if (localStorage.getItem('token') && localStorage.getItem('loggedIn')) {
+                    navigate('/feed')
+                }
+            })
+            .catch(error => {
+                toast.error("Erreur d'identifiants!")
+            })
+
+    }
+
     const setView = (name) => {
         setViewForm(name)
     }
+    let typeLogin;
     if (viewForm === "login") {
-        login = <div className='remember-me'>
+        typeLogin = <div className='remember-me'>
             <div>
                 <input type="checkbox" name="remember-me" id="remember-me" />
                 Se souvenir de moi
@@ -24,21 +54,21 @@ export default function Form({ viewForm, setViewForm }) {
     }
     return (
         <>
-            <form action="">
+            <form>
                 <div>
                     <label htmlFor="username">Email<sup>*</sup></label>
-                    <input type="email" name="username" id="username" placeholder='mail@website.com' />
+                    <input type="email" name="username" id="username" placeholder='mail@website.com' onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <div>
                     <label htmlFor="password">Password<sup>*</sup></label>
                     <div className='blockForm'>
-                        <input type="password" name="password" id="password" placeholder='Mot de passe' />
+                        <input type="password" name="password" id="password" placeholder='Mot de passe' onChange={(e) => setPassword(e.target.value)} />
                         <img src={Eye} alt="Visibility Mot de passe" className="eyes" width="20px" />
                     </div>
                 </div>
-                {login}
+                {typeLogin}
                 <div className='form-center'>
-                    <input type="submit" className="btn-submit" value={viewForm === "login" ? "Se Connecter" : "S'inscrire"} />
+                    <button onClick={login} className="btn-submit" >{viewForm === "login" ? "Se Connecter" : "S'inscrire"}</button>
                 </div>
             </form>
             <div className='form-center'>
@@ -58,7 +88,7 @@ export default function Form({ viewForm, setViewForm }) {
                 <p className="register" onClick={() => setView('register')}>S’inscrire</p>
             </div>
             <div className='form-center'>
-                <Link to="/feed"><button className="btn-submit">Continuer sans s'inscrire</button></Link >
+                <Link to="/community"><button className="btn-submit">Continuer sans s'inscrire</button></Link >
             </div>
         </>
     )

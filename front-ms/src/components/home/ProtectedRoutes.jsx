@@ -1,14 +1,16 @@
-import { Navigate, Outlet } from "react-router-dom";
-import Homepage from "../../pages/Homepage";
+import { useContext } from "react";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { UserContext } from "../../App";
 
 const useAuth = () => {
-    const user = { loggedIn: false }
+    const { user } = useContext(UserContext)
     return user && user.loggedIn;
 }
 
 const ProtectedRoute = () => {
+    const location = useLocation()
     const isAuth = useAuth();
-    return isAuth ? <Outlet /> : <Navigate to='/' />;
+    return isAuth ? (<Outlet />) : (<Navigate to='/' replace state={{ from: location }} />);
 }
 
 export default ProtectedRoute

@@ -1,0 +1,38 @@
+@import url('../../assets/css/main.css');
+
+.sidebar {
+    width: 257px;
+    height: 1070px;
+    background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
+    box-shadow: 6px 6px 10px var(--unnamed-color-f7f7f7);
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 6px 6px 10px #F7F7F7;
+    border: 1px solid #EDEDED;
+    opacity: 1;
+}
+
+;
+
+.items {
+    cursor: pointer;
+}
+
+.sidebar li {
+    list-style-type: none;
+}
+
+.separator {
+    height: 1px;
+    width: 100%;
+    padding-left: -42px;
+    background: var(--main-color-orange);
+    opacity: .2;
+}
+
+.logo-sidebar img {
+    width: 147px;
+    height: 83px;
+    margin-left: 42px;
+    margin-bottom: 35px;
+    margin-top: 35px;
+}
