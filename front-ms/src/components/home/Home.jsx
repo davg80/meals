@@ -30,7 +30,7 @@ export default function Home() {
             </div>
             <div>
                 {viewLink}
-                <Form typeForm={viewForm} />
+                <Form viewForm={viewForm} setViewForm={setViewForm} />
             </div>
         </section>
     )

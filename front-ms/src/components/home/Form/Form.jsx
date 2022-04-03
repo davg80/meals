@@ -4,11 +4,16 @@ import Google from './google.svg';
 import Facebook from './facebook.svg';
 import Apple from './apple.svg';
 import Eye from './eye-mdp.svg';
+import { Link } from 'react-router-dom'
 
-export default function Form(props) {
-    // console.log(props);
+export default function Form({ viewForm, setViewForm }) {
+    // console.log(viewForm);
+    // console.log(setViewForm);
     let login;
-    if (props.typeForm === "login") {
+    const setView = (name) => {
+        setViewForm(name)
+    }
+    if (viewForm === "login") {
         login = <div className='remember-me'>
             <div>
                 <input type="checkbox" name="remember-me" id="remember-me" />
@@ -33,7 +38,7 @@ export default function Form(props) {
                 </div>
                 {login}
                 <div className='form-center'>
-                    <input type="submit" className="btn-submit" value={props.typeForm === "login" ? "Se Connecter" : "S'inscrire"} />
+                    <input type="submit" className="btn-submit" value={viewForm === "login" ? "Se Connecter" : "S'inscrire"} />
                 </div>
             </form>
             <div className='form-center'>
@@ -50,10 +55,10 @@ export default function Form(props) {
             </div>
             <div className='form-center'>
                 <p className="no-register">Vous n’avez pas encore de compte ?</p>
-                <p className="register">S’inscrire</p>
+                <p className="register" onClick={() => setView('register')}>S’inscrire</p>
             </div>
             <div className='form-center'>
-                <button className="btn-submit">Continuer sans s'inscrire</button>
+                <Link to="/feed"><button className="btn-submit">Continuer sans s'inscrire</button></Link >
             </div>
         </>
     )
