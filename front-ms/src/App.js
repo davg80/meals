@@ -10,6 +10,7 @@ import Feed from './pages/feed'
 import Register from './pages/users/Register'
 import Homepage from './pages/Homepage'
 import Community from './pages/community'
+import Post from './pages/posts/Post';
 import ProtectedRoutes from "./components/home/ProtectedRoutes"
 import { createContext, useState } from "react"
 
@@ -28,6 +29,7 @@ function App() {
           <Route exact path="/account" element={<Account />} />
           <Route exact path="/feed" element={<Feed />} />
           <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/post" element={<Post />} />
         </Route>
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/Login" element={<Login />} />

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import './Sidebar.css'
 import Logo from '../../assets/logo-orange.png'
 import { UserContext } from "../../App"
@@ -18,26 +18,34 @@ export default function Sidebar() {
     }
     return (
         <nav>
-            <ul className='liste'>
+            <ul className='liste1'>
                 <li className="logo-sidebar"><img src={Logo} alt="Logo de Mealsaveurs" /></li>
-                <li className='separator'></li>
-                <li className="items">Feed</li>
-                <li className="items">Ajouter un post</li>
-                <li className="items">Mes j'aimes</li>
-                <li className="items">Mon planning</li>
-                <li className="items">Ma liste de course</li>
-                <li className="items">Mon carnet</li>
-                <li className="items">Mon blog</li>
-                <li className='separator'></li>
-                <li className="items">Producteurs locaux</li>
-                <li className="items">Mon profil</li>
-                <li className="items">Paramètres</li>
-                <li className='separator'></li>
-                <li className="items">Upgrade</li>
-                <li className='separator'></li>
-                <li className="items" onClick={logout}>Deconnexion</li>
-                <li className='separator'></li>
             </ul>
-        </nav>
+            <p className='separator'></p>
+            <ul className='liste2'>
+                <li className="items"><NavLink to="/feed" className={({ isActive }) => { return isActive ? "isActive-link" : "" }}>Feed</NavLink></li>
+                <li className="items"><NavLink to="/post">Ajouter un post</NavLink></li>
+                <li className="items"><NavLink to="">Mes j'aimes</NavLink></li>
+                <li className="items"><NavLink to="">Mon planning</NavLink></li>
+                <li className="items"><NavLink to="">Ma liste de course</NavLink></li>
+                <li className="items"><NavLink to="">Mon carnet</NavLink></li>
+                <li className="items"><NavLink to="">Mon blog</NavLink></li>
+            </ul>
+            <p className='separator'></p>
+            <ul className='liste3'>
+                <li className="items"><NavLink to="">Producteurs locaux</NavLink></li>
+                <li className="items"><NavLink to="">Mon profil</NavLink></li>
+                <li className="items"><NavLink to="">Paramètres</NavLink></li>
+            </ul>
+            <p className='separator-upgrade'></p>
+            <ul className='liste4'>
+                <li className="items"><NavLink to="">Upgrade</NavLink></li>
+            </ul>
+            <p className='separator-upgrade'></p>
+            <ul className='liste5'>
+                <li className="items" onClick={logout}>Deconnexion</li>
+            </ul>
+            <p className='separator'></p>
+        </nav >
     )
 }

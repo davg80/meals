@@ -39,6 +39,15 @@ export default function Form({ viewForm, setViewForm }) {
 
     }
 
+    const handleEyes = (e) => {
+        let passwordInput = document.querySelector('#password');
+        if (e.type === "mousedown") {
+            passwordInput.setAttribute('type', 'text');
+        } else {
+            passwordInput.setAttribute('type', 'password');
+        }
+    }
+
     const setView = (name) => {
         setViewForm(name)
     }
@@ -63,7 +72,7 @@ export default function Form({ viewForm, setViewForm }) {
                     <label htmlFor="password">Password<sup>*</sup></label>
                     <div className='blockForm'>
                         <input type="password" name="password" id="password" placeholder='Mot de passe' onChange={(e) => setPassword(e.target.value)} />
-                        <img src={Eye} alt="Visibility Mot de passe" className="eyes" width="20px" />
+                        <img src={Eye} alt="Visibility Mot de passe" className="eyes" width="20px" onMouseDown={handleEyes} onMouseUp={handleEyes} />
                     </div>
                 </div>
                 {typeLogin}
