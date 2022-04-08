@@ -10,3 +10,9 @@
     --main-color-shadow: #f7f7f7;
     --main-color-yellow: #F5C22F;
 }
+
+html,
+body {
+    font-family: nimbus-sans,
+        sans-serif;
+}
